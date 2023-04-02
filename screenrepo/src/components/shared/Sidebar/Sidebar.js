@@ -4,7 +4,8 @@ const Sidebar = () => {
 
 
   let state = useSelector(state=>(state.AllImageReducer))
-  console.log(state)
+  const comp = state;
+  const comp_name = [...new Set(comp.map(obj => obj.compName))];
   return (
     <>
     <section>
@@ -14,15 +15,11 @@ const Sidebar = () => {
         <img src="/assets/images/logo.svg" alt="logo" className="ms-5" />
       </div>
     </div>
-    <p className="para ms-4">Apps</p>
+    <p className="para">Apps</p>
     <div className="group ms-2">
-    {
-state.map((c)=> {
-return(
-  <a style={{cursor: 'pointer'}} key="c._id">{ c }</a>
-)
-})
-    }
+{
+  comp_name.map((c)=>( <a style={{cursor: 'pointer'}} key={c}>{ c}</a> ))
+}
       
     </div>
   </div>

@@ -1,9 +1,11 @@
 
+// I:\ScreenRepo\screenrepo\src\app\user
 import { getAllImages } from "../../../Redux/AllImageReducer"
 import { useEffect } from "react"
 import {useDispatch, useSelector} from "react-redux"
 
 import Sidebar from "../../shared/Sidebar/Sidebar"
+import Searchbar from "../../shared/Searchbar/Searchbar"
 import { getImages } from "../../services/ImageService"
 const Home = () => {
   let dispatch = useDispatch()
@@ -30,10 +32,7 @@ if(state.length === 0) {
         <Sidebar></Sidebar>
       </div>
       <div className="col-lg-10 col-md-9 col-sm-8">
-        {/* <app-searchbar
-          (searchResults)="onSearchResults($event)"
-          (searchSuggestionsByBox)="onSearchResultsBox($event)"
-        ></app-searchbar> */}
+        <Searchbar />
         <hr />
         <h3 className="mt-5 ms-5">
           {/* Showing {{ searchList.length }} screens from {{ appNum }} apps */}
@@ -57,3 +56,6 @@ if(state.length === 0) {
 }
 
 export default Home
+
+// (searchResults)="onSearchResults($event)"
+// (searchSuggestionsByBox)="onSearchResultsBox($event)"

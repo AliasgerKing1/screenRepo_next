@@ -1,0 +1,66 @@
+.searchbar {
+  margin-bottom: 20px;
+}
+hr {
+  width: 100%;
+}
+.search-area {
+  position: relative;
+}
+.magnify {
+  display: inline;
+}
+.btn {
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 8px;
+
+  position: absolute;
+  width: 353px;
+  height: 24px;
+  left: 664px;
+  top: 20px;
+  border: none;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  /* Neutral/80 */
+
+  color: #666666;
+}
+.suggestion-box {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  width: 379px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+.suggestion-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestion-box li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-box li:hover {
+  background-color: #f2f2f2;
+}
