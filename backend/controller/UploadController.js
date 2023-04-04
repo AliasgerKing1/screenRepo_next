@@ -2,6 +2,7 @@ const routes = require("express").Router();
 const Upload = require("../models/Upload");
 const str = require("random-string");
 const path = require("path");
+const { cpSync } = require("fs");
 
 routes.post("/upload", (req, res) => {
   let body = JSON.parse(req.body.data);
@@ -25,6 +26,7 @@ routes.post("/upload", (req, res) => {
   });
 });
 routes.get("/files", (req, res) => {
+  let comp;
   Upload.find({},(error, result) => {
 
     const imagesByCompany = result.reduce((acc, image) => {
@@ -52,7 +54,6 @@ routes.get("/files", (req, res) => {
     // ... do something with the limited images ...
   })
 })
-
 routes.get("/files/all", (req, res) => {
   Upload.find({}, (error, result) => {
     let new_result = result.map((x) => {
@@ -148,32 +149,51 @@ console.log(err)
 })
 
 
+
 // ---------------------pagination----------------
 
-routes.get("/all", (req,res)=> {
-  Upload.find({}, (error , result)=> {
-      res.send(result);
-      })
-})
+// routes.get("/all", (req,res)=> {
+//   Upload.find({}, (error , result)=> {
+//       res.send(result);
+//       })
+// })
 
-routes.get("/totalCity", (req,res)=> {
-  Upload.count((error,result)=> {
-      res.send({total : result});
-  })
-})
-routes.get("/pagination/:a/:b", (req,res)=> {
-  let total = req.params.a;
-  let skip = req.params.b;
-  if(skip != 0 ) {
-      skip = (skip-1)*total;
+// routes.get("/totalImages", (req,res)=> {
+//   Upload.count((error,result)=> {
+//       res.send({total : result});
+//   })
+// })
+// routes.get("/pagination/:a/:b", (req,res)=> {
+//   let total = req.params.a;
+//   let skip = req.params.b;
+//   if(skip != 0 ) {
+//       skip = (skip-1)*total;
+//   }
+//       Upload.find().skip(skip).limit(total).exec((error,result)=> {
+//         let new_result = result.map((x) => {
+//           x.screen_shot = "http://localhost:3000/screenShots/" + x.screen_shot;
+//           return x;
+//         });
+//       res.send(new_result);
+//   })
+// })
+
+routes.get('/data/start/:start/end/:end', async (req, res) => {
+  const  start = req.params.start;
+  const  end = req.params.end;
+  try {
+    const data = await Upload.find({});
+    const slicedData = data.slice(parseInt(start), parseInt(end));
+    let new_result = slicedData.map((x) => {
+      x.screen_shot = "http://localhost:4000/screenShots/" + x.screen_shot;
+      return x;
+    });
+    res.json(new_result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
   }
-      Upload.find().skip(skip).limit(total).exec((error,result)=> {
-        let new_result = result.map((x) => {
-          x.screen_shot = "http://localhost:3000/screenShots/" + x.screen_shot;
-          return x;
-        });
-      res.send(new_result);
-  })
-})
+});
+
 
 module.exports = routes;

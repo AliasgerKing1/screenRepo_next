@@ -1,14 +1,16 @@
 
 // I:\ScreenRepo\screenrepo\src\app\user
-import { getAllImages } from "../../../Redux/AllImageReducer"
-import { useEffect } from "react"
-import {useDispatch, useSelector} from "react-redux"
+import { getAllImages} from "../../../Redux/AllImageReducer"
+
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Sidebar from "../../shared/Sidebar/Sidebar"
-import Searchbar from "../../shared/Searchbar/Searchbar"
+import Searchbar from "../../shared/SearchBar/SearchBar"
 import { getImages } from "../../services/ImageService"
+import Company from "../../shared/Company/Company";
 const Home = () => {
-  let dispatch = useDispatch()
+  const dispatch = useDispatch();
   
   let state = useSelector(state=>(state.AllImageReducer))
   let AllImagesFun = async() => {
@@ -20,6 +22,7 @@ if(state.length === 0) {
   AllImagesFun();
 }
   }, [])
+  
   return (
     <>
 <div
@@ -33,12 +36,13 @@ if(state.length === 0) {
       </div>
       <div className="col-lg-10 col-md-9 col-sm-8">
         <Searchbar />
-        <hr />
+
         <h3 className="mt-5 ms-5">
           {/* Showing {{ searchList.length }} screens from {{ appNum }} apps */}
         </h3>
         <div className="row me-5">
           <div className="col-md-11 ms-5">
+          <Company />
             {/* <app-screenshot
               [searchResults]="searchResults2"
               [searchSuggestionsByBox]="searchResultsBox"
@@ -59,3 +63,4 @@ export default Home
 
 // (searchResults)="onSearchResults($event)"
 // (searchSuggestionsByBox)="onSearchResultsBox($event)"
+

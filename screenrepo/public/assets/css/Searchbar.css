@@ -1,40 +1,33 @@
-.searchbar {
-  margin-bottom: 20px;
-}
-hr {
-  width: 100%;
-}
 .search-area {
   position: relative;
+  height: 100vh; /* set height to full viewport height */
 }
+
 .magnify {
-  display: inline;
-}
-.btn {
-  /* Auto layout */
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  gap: 8px;
-
   position: absolute;
-  width: 353px;
-  height: 24px;
-  left: 664px;
   top: 20px;
+  left: 39%;
+  transform: translateX(-50%);
+  margin-right: 10px; /* add margin to the right of icon */
+}
+
+.btn {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 379px;
+  height: 24px;
   border: none;
   font-family: "Inter";
   font-style: normal;
   font-weight: 300;
   font-size: 14px;
   line-height: 20px;
-  /* identical to box height, or 143% */
-
-  /* Neutral/80 */
-
   color: #666666;
+}
+hr {
+  width: 100%;
 }
 .suggestion-box {
   position: absolute;

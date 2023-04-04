@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Searchbar = () => {
+const SearchBar = () => {
   return (
     <>
     <section className='searchbar'>
@@ -17,11 +17,8 @@ const Searchbar = () => {
         <input
           type="text"
           className="btn"
-          style={{width: '379px', cursor: 'text'}}
-          placeholder=" Search screen by name, category and app name"
-        
-        />
-
+          style={{width: '379px'}}
+          placeholder=" Search screen by name, category and app name"/>
 
 
 {/* [(ngModel)]="searchTerm"
@@ -66,4 +63,4 @@ const Searchbar = () => {
   )
 }
 
-export default Searchbar
+export default SearchBar
