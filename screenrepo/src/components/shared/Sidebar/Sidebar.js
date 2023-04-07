@@ -8,14 +8,13 @@ const Sidebar = () => {
   const comp_name = [...new Set(comp.map(obj => obj.compName))];
   return (
     <>
-    <section>
   <div className="sidebar">
     <div className="row">
       <div className="col-md-2">
-        <img src="/assets/images/logo.svg" alt="logo" className="ms-5" />
+        <img src="/assets/images/logo.svg" alt="logo" />
       </div>
     </div>
-    <p className="para">Apps</p>
+    <p className="para mt-2 mb-1">Apps</p>
     <div className="group ms-2">
 {
   comp_name.map((c)=>( <a style={{cursor: 'pointer'}} key={c}>{ c}</a> ))
@@ -23,8 +22,6 @@ const Sidebar = () => {
       
     </div>
   </div>
-</section>
-
     </>
   )
 }

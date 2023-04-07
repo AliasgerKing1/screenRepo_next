@@ -3,7 +3,6 @@ import React from 'react'
 const SearchBar = () => {
   return (
     <>
-    <section className='searchbar'>
         <div className="container">
   <div className="row">
     <div className="col-md-6 offset-md-3">
@@ -11,27 +10,16 @@ const SearchBar = () => {
         <img
           src="/assets/images/search.svg"
           alt="search logo"
-          className='magnify'
-          style={{marginRight: '-15px'}}
+          style={{top : '20px', position : "absolute", left: '13%'}}
         />
         <input
           type="text"
-          className="btn"
+          className="btn2"
           style={{width: '379px'}}
-          placeholder=" Search screen by name, category and app name"/>
-
-
-{/* [(ngModel)]="searchTerm"
-          (keyup)="onSearchInput()"
-          (input)="onInput($event)" */}
-
-
-
-
-
-
-        {/* <div className="suggestion-box" *ngIf="showSuggestions"> */}
-          {/* <ul>
+          placeholder=" | Search screen by name, category and app name"
+        />
+        {/* <div className="suggestion-box" *ngIf="showSuggestions">
+          <ul>
             <ng-container *ngFor="let suggestion of suggestions">
               <ng-container
                 *ngIf="
@@ -52,13 +40,13 @@ const SearchBar = () => {
                 <!-- <ng-container *ngBreak="true"></ng-container> -->
               </ng-container>
             </ng-container>
-          </ul> */}
-        {/* </div> */}
+          </ul>
+        </div> */}
       </div>
     </div>
   </div>
 </div>
-    </section>
+
     </>
   )
 }
