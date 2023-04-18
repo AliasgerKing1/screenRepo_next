@@ -178,22 +178,36 @@ console.log(err)
 //   })
 // })
 
-routes.get('/data/start/:start/end/:end', async (req, res) => {
-  const  start = req.params.start;
-  const  end = req.params.end;
+// routes.get('/data/start/:start/end/:end', async (req, res) => {
+//   const  start = req.params.start;
+//   const  end = req.params.end;
+//   try {
+//     const data = await Upload.find({});
+//     const slicedData = data.slice(parseInt(start), parseInt(end));
+//     let new_result = slicedData.map((x) => {
+//       x.screen_shot = "http://localhost:4000/screenShots/" + x.screen_shot;
+//       return x;
+//     });
+//     res.json(new_result);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Server error');
+//   }
+// });
+
+routes.get('/scroll', async(req, res) => {
+  const { page } = req.query;
+  const { _limit } = req.query;
   try {
-    const data = await Upload.find({});
-    const slicedData = data.slice(parseInt(start), parseInt(end));
-    let new_result = slicedData.map((x) => {
-      x.screen_shot = "http://localhost:4000/screenShots/" + x.screen_shot;
-      return x;
-    });
-    res.json(new_result);
+    const cards = await Upload.find().limit(_limit).skip((page - 1) * 9);
+    let new_result = cards.map((x) => {
+            x.screen_shot = "http://localhost:4000/screenShots/" + x.screen_shot;
+            return x;
+          });
+          res.json(new_result);
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Server error');
+    res.status(500).json({ message: error.message });
   }
 });
-
 
 module.exports = routes;

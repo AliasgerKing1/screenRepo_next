@@ -1,75 +1,54 @@
 import React, { useState, useEffect } from "react";
-import { getPagination } from "../../services/ScrollService";
 import Spinner from "../Spinner/Spinner";
+import ImageGallery from "../ImageGallery/ImageGallery";
 
 const Company = () => {
-  const [data, setData] = useState([]);
-  const [start, setStart] = useState(0);
-  const [end, setEnd] = useState(16);
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadedCompanies, setLoadedCompanies] = useState([]);
+  const [card, setCard] = useState([]);
+  const [page, setPage] = useState(9);
+  const [loading, setLoading] = useState(true);
+
+  const getCardData = async () => {
+    const res = await fetch(
+      `http://localhost:4000/api/screenShot/scroll?_limit=9&_page=${page}`
+    );
+    const data = await res.json();
+    setCard((prev) => [...prev, ...data]);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const response = await getPagination(start, end);
-      setData(prevData => [...prevData, ...response.data]);
-      setIsLoading(false);
-    };
-    fetchData();
-  }, [start, end]);
+    getCardData();
+  }, [page]);
 
-
-  useEffect(() => {
-    if (data.length > 0) {
-      const firstCompanies = data.slice(0, 8);
-      setLoadedCompanies(prevCompanies => [...prevCompanies, ...firstCompanies]);
-      console.log(loadedCompanies);
-    }
-  }, [data]);
-  
-  
-  useEffect(() => {
-    if (isLoading) {
-      const nextCompanies = data.slice(loadedCompanies.length, loadedCompanies.length + 8);
-      setTimeout(() => {
-        setLoadedCompanies(prevCompanies => [...prevCompanies, ...nextCompanies]);
-        setIsLoading(false);
-      }, 2000); // Simulate a delay while the images load
-    }
-  }, [isLoading, data, loadedCompanies]);
-
-  const handleScroll = () => {
-    const isScrolledToLastImages =
-      window.innerHeight + document.documentElement.scrollTop >=
-      document.documentElement.offsetHeight - 10 * 100;
-
-    if (isScrolledToLastImages && data.length === end) {
-      setStart(prevStart => prevStart + 16);
-      setEnd(prevEnd => prevEnd + 16);
+  const handelInfiniteScroll = async () => {
+    // console.log("scrollHeight" + document.documentElement.scrollHeight);
+    // console.log("innerHeight" + window.innerHeight);
+    // console.log("scrollTop" + document.documentElement.scrollTop);
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight
+      ) {
+        setLoading(true);
+        setPage((prev) =>
+          prev + 9
+          );
+        console.log(page)
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [data]);
+    window.addEventListener("scroll", handelInfiniteScroll);
+    return () => window.removeEventListener("scroll", handelInfiniteScroll);
+  }, []);
 
   return (
     <>
-    <div className="row">
-
-
-      {loadedCompanies.map(company => (
-        <div className="col-md-3"key={company.compName}>
-          <h2>{company.compName}</h2>
-          <div>
-              <img key={company.screen_shot} src={company.screen_shot} alt={company.compName} className="img-fluid" />
-          </div>
-        </div>
-      ))}
-      </div>
-      {isLoading && <Spinner />}
+      <ImageGallery screenInfo={card} />
+      {loading && <Spinner />}
     </>
   );
 };

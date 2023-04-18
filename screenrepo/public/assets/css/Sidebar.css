@@ -27,7 +27,7 @@
 
 .sidebar .group a {
   display: block;
-  font-size: 14px;
+  font-size: 11px;
   padding: 10px 13px;
   color: #666666;
   text-decoration: none;
@@ -48,12 +48,12 @@
 
 @media (min-width: 576px) {
   .sidebar {
-    width: 280px;
+    width: 210px;
     overflow-x: visible;
   }
 
   .sidebar .group {
-    width: 280px;
+    width: 240px;
     margin-left: 0;
   }
 }
